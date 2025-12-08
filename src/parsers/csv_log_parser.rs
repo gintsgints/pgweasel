@@ -1,7 +1,4 @@
-use std::{
-    fs::File,
-    io::{BufRead, BufReader},
-};
+use std::{fs::File, io::BufReader};
 
 use chrono::{DateTime, Local};
 use csv::ReaderBuilder;
@@ -77,8 +74,11 @@ impl LogParser for CsvLogParser {
                     }
                 }
             }
-            
-            Some(Ok(LogLine { pg_log: Some(log_record), raw: "".to_string() }))
+
+            Some(Ok(LogLine {
+                pg_log: Some(log_record),
+                raw: "".to_string(),
+            }))
         });
         Box::new(iter)
     }
