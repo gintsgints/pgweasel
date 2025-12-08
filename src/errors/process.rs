@@ -8,6 +8,13 @@ use crate::convert_args::ConvertedArgs;
 use crate::errors::Severity;
 use crate::errors::log_record::PostgresLog;
 
+
+/// Filtering possiblities
+/// min_severity_num: i32
+/// mask: String
+/// begin: Option<DateTime<Local>>,
+/// end: Option<DateTime<Local>>,
+/// 
 pub fn process_errors(converted_args: &ConvertedArgs, min_severity: &Severity) {
     let min_severity_num: i32 = min_severity.into();
 
