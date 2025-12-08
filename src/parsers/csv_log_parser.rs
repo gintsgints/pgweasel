@@ -20,7 +20,7 @@ pub struct CsvLogParser {
 pub type Result<T> = core::result::Result<T, Error>;
 pub type Error = Box<dyn std::error::Error>;
 
-impl<'a> CsvLogParser {
+impl CsvLogParser {
     pub fn new(file_with_path: FileWithPath) -> Self {
         let reader = BufReader::new(file_with_path.file);
         let csv_reader = ReaderBuilder::new()
