@@ -32,7 +32,10 @@ use humantime::parse_duration;
 use log::{debug, error};
 
 use crate::{
-    aggregators::{Aggregator, ConnectionsAggregator, ErrorFrequencyAggregator, TopSlowQueries},
+    aggregators::{
+        Aggregator, ConnectionsAggregator, ErrorFrequencyAggregator, PeaksAggregator,
+        TopSlowQueries,
+    },
     convert_args::ConvertedArgs,
     filters::{Filter, FilterSlow},
     output_results::output_results,
@@ -106,8 +109,14 @@ fn main() -> Result<()> {
             converted_args.print_details = false;
             output_results(converted_args, &Severity::Log, &mut aggregators, &filters)?;
         }
-        Some(("peaks", _)) => {
-            error!("Not implemented")
+        Some(("peaks", sub_matches)) => {
+            let mut bucket_interval = Duration::from_mins(10);
+            if let Some(bucket_str) = sub_matches.get_one::<String>("bucket") {
+                bucket_interval = parse_duration(bucket_str)?;
+            }
+            aggregators.push(Box::new(PeaksAggregator::new(bucket_interval)));
+            converted_args.print_details = false;
+            output_results(converted_args, &Severity::Log, &mut aggregators, &filters)?;
         }
         Some(("slow", sub_matches)) => {
             if let Some(("top", _)) = sub_matches.subcommand() {

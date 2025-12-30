@@ -75,7 +75,7 @@ Here is a list of currently implemented commands
 
 ### peaks
 
-- [ ] `pgweasel peaks $LOG` Show the "busiest" time periods with most log events, using a 10min bucket by default
+- [x] `pgweasel peaks $LOG` Show the "busiest" time periods with most log events, using a 10min bucket by default
 
 ### slow
 

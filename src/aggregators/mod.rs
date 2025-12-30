@@ -1,6 +1,8 @@
 mod connections;
 mod error_frequency;
 mod top_slow_query;
+mod peaks;
+mod round_floor;
 
 use std::any::Any;
 
@@ -8,6 +10,8 @@ use chrono::{DateTime, Local};
 pub use connections::ConnectionsAggregator;
 pub use error_frequency::ErrorFrequencyAggregator;
 pub use top_slow_query::TopSlowQueries;
+pub use peaks::PeaksAggregator;
+pub use round_floor::round_floor;
 
 use crate::{error::Result, format::Format, severity::Severity};
 
